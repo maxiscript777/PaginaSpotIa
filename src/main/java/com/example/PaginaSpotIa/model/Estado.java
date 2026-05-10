@@ -1,4 +1,4 @@
-package com.example.heroes.heroes.model;
+package com.example.PaginaSpotIa.model;
 
 import java.util.List;
 

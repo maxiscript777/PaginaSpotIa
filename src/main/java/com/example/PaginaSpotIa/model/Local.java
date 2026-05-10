@@ -1,4 +1,4 @@
-package com.example.heroes.heroes.model;
+package com.example.PaginaSpotIa.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
