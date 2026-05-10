@@ -41,4 +41,7 @@ public class Servicio {
     @ToString.Exclude
     private List<Reservas> reservas;
 
+    @ManyToMany(mappedBy = "servicios")
+    private List<Local> locales;
+
 }

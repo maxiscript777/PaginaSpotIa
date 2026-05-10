@@ -49,4 +49,10 @@ public class Local {
     @ToString.Exclude
     private List<Reservas> reservas;
 
+    @ManyToMany
+    @JoinTable(name ="local_servicios",
+                joinColumns = @JoinColumn(name = "local_id"),
+                inverseJoinColumns = @JoinColumn(name = "servicio_id"))
+    private List<Servicio> servicios;
+
 }
