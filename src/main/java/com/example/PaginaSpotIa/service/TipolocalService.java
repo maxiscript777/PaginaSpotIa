@@ -2,35 +2,71 @@ package com.example.PaginaSpotIa.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.example.PaginaSpotIa.DTO.tipolocalDTO;
 import com.example.PaginaSpotIa.model.Tipolocal;
 import com.example.PaginaSpotIa.repository.TipolocalRepository;
 
 @Service
 public class TipolocalService {
-    @Autowired
-    private TipolocalRepository tipolocalRepository;
 
-    public List<Tipolocal> obtenerTiposLocal() {
-        return tipolocalRepository.findAll();
+    private final TipolocalRepository repository;
+
+    private static final Logger logger =
+            LoggerFactory.getLogger(TipolocalService.class);
+
+    public TipolocalService(TipolocalRepository repository) {
+
+        this.repository = repository;
     }
 
-    public Tipolocal obtenerTipoLocalPorId(Integer id) {
-        return tipolocalRepository.findById(id).orElse(null);
+    public List<Tipolocal> listar() {
+
+        logger.info("Listando tipos de local");
+
+        return repository.findAll();
     }
 
-    // BUSCAR POR NOMBRE
-    public List<Tipolocal> buscarPorNombre(String nombreTipo) {
-        return tipolocalRepository.findByNombreTipoLocal(nombreTipo);
+    public Tipolocal buscarPorId(Integer id) {
+
+        logger.info("Buscando tipo de local");
+
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Tipo de local no encontrado"));
     }
 
-    public Tipolocal guardarTipoLocal(Tipolocal tipolocal) {
-        return tipolocalRepository.save(tipolocal);
+    public Tipolocal guardar(tipolocalDTO dto) {
+
+        logger.info("Guardando tipo de local");
+
+        Tipolocal tipolocal = new Tipolocal();
+
+        tipolocal.setNombre(dto.getNombre());
+        tipolocal.setDescripcion(dto.getDescripcion());
+
+        return repository.save(tipolocal);
     }
 
-    public void eliminarTipoLocal(Integer id) {
-        tipolocalRepository.deleteById(id);
+    public Tipolocal actualizar(Integer id, tipolocalDTO dto) {
+
+        logger.info("Actualizando tipo de local");
+
+        Tipolocal tipolocal = buscarPorId(id);
+
+        tipolocal.setNombre(dto.getNombre());
+        tipolocal.setDescripcion(dto.getDescripcion());
+
+        return repository.save(tipolocal);
+    }
+
+    public void eliminar(Integer id) {
+
+        logger.info("Eliminando tipo de local");
+
+        repository.deleteById(id);
     }
 }

@@ -3,15 +3,19 @@ package com.example.PaginaSpotIa.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.example.PaginaSpotIa.model.Estado;
 
-@Repository
-public interface EstadoRepository extends JpaRepository<Estado, Integer> {
+public interface EstadoRepository
+        extends JpaRepository<Estado, Integer> {
 
-    List<Estado> findByNombreEstado(String nombreEstado);
-    
-    List<Estado> findByNombreEstadoContaining(String nombreEstado);
+    List<Estado> findByNombre(String nombre);
+
+    @Query("SELECT e FROM Estado e WHERE e.nombre LIKE %:nombre%")
+    List<Estado> buscarPorNombre(
+            @Param("nombre") String nombre
+    );
 
 }

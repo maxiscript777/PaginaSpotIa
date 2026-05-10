@@ -8,13 +8,11 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.PaginaSpotIa.model.Comuna;
 
-public interface comunaRepository
+public interface ComunaRepository
         extends JpaRepository<Comuna, Integer> {
 
-    // Buscar por nombre exacto
     List<Comuna> findByNombre(String nombre);
 
-    // Buscar por coincidencia parcial
     @Query("SELECT c FROM Comuna c WHERE c.nombre LIKE %:nombre%")
     List<Comuna> buscarPorNombre(
             @Param("nombre") String nombre

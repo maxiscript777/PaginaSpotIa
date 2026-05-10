@@ -4,7 +4,10 @@ import lombok.Data;
 
 @Data
 public class servicioDTO {
+
     private Integer idServicio;
-    private String nombreServicio;
-    private Integer cantidadDelServicio;
+    private String nombre;
+    private String descripcion;
+    private Integer precio;
+
 }

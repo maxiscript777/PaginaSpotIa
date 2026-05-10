@@ -4,8 +4,12 @@ import lombok.Data;
 
 @Data
 public class localDTO {
+
     private Integer idLocal;
-    private String nombreLocal;
-    private Integer capacidadLocal;
-    private Integer telefonoLocal;
+    private String nombre;
+    private String descripcion;
+    private Integer capacidad;
+    private Integer idTipoLocal;
+    private Integer idUbicacion;
+
 }

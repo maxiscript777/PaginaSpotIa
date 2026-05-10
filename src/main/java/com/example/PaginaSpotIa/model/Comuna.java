@@ -2,16 +2,9 @@ package com.example.PaginaSpotIa.model;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,20 +17,23 @@ import lombok.ToString;
 @Entity
 @Table(name = "comunas")
 public class Comuna {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idComuna;
 
     @NotBlank(message = "El nombre no puede estar vacío")
-    @Size(min = 4, max = 20, message = "El nombre debe contener entre 4 y 20 caracteres")
-    @Column(nullable = false)
+    @Size(min = 3, max = 50,
+            message = "El nombre debe contener entre 3 y 50 caracteres")
     private String nombre;
 
     @ManyToOne
-    @JoinColumn(name = "region_id")
+    @JoinColumn(name = "id_region")
+    @NotNull(message = "La región no puede ser nula")
     private Region region;
 
     @OneToMany(mappedBy = "comuna")
     @ToString.Exclude
     private List<Ubicacion> ubicaciones;
+
 }

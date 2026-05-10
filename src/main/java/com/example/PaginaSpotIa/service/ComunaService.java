@@ -2,43 +2,85 @@ package com.example.PaginaSpotIa.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.example.PaginaSpotIa.DTO.comunaDTO;
 import com.example.PaginaSpotIa.model.Comuna;
+import com.example.PaginaSpotIa.model.Region;
 import com.example.PaginaSpotIa.repository.ComunaRepository;
+import com.example.PaginaSpotIa.repository.RegionRepository;
 
 @Service
 public class ComunaService {
 
-    @Autowired
-    private ComunaRepository comunaRepository;
+    private final ComunaRepository repository;
+    private final RegionRepository regionRepo;
 
-    public List<Comuna> obtenerComunas() {
-        return comunaRepository.findAll();
+    private static final Logger logger =
+            LoggerFactory.getLogger(ComunaService.class);
+
+    public ComunaService(
+            ComunaRepository repository,
+            RegionRepository regionRepo) {
+
+        this.repository = repository;
+        this.regionRepo = regionRepo;
     }
 
-    public Comuna obtenerComunaPorId(Integer id) {
-        return comunaRepository.findById(id).orElse(null);
-    }
-    public List<Comuna> buscarPorNombre(String nombre) {
-        return comunaRepository.findByNombre(nombre);
+    public List<Comuna> listar() {
+
+        logger.info("Listando comunas");
+
+        return repository.findAll();
     }
 
-    public List<Comuna> buscarSimilares(String nombre) {
-        return comunaRepository.findByNombreContaining(nombre);
+    public Comuna buscarPorId(Integer id) {
+
+        logger.info("Buscando comuna");
+
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Comuna no encontrada"));
     }
 
-    public List<Comuna> buscarNombreLargo(Integer cantidad) {
-        return comunaRepository.buscarComunasNombreLargo(cantidad);
+    public Comuna guardar(comunaDTO dto) {
+
+        logger.info("Guardando comuna");
+
+        Region region = regionRepo.findById(dto.getIdRegion())
+                .orElseThrow(() ->
+                        new RuntimeException("Región no encontrada"));
+
+        Comuna comuna = new Comuna();
+
+        comuna.setNombre(dto.getNombre());
+        comuna.setRegion(region);
+
+        return repository.save(comuna);
     }
 
-    public Comuna guardarComuna(Comuna comuna) {
-        return comunaRepository.save(comuna);
-    }
+    public Comuna actualizar(Integer id, comunaDTO dto) {
 
-    public void eliminarComuna(Integer id) {
-        comunaRepository.deleteById(id);
-    }
+        logger.info("Actualizando comuna");
 
+        Comuna comuna = buscarPorId(id);
+
+        Region region = regionRepo.findById(dto.getIdRegion())
+                .orElseThrow(() ->
+                        new RuntimeException("Región no encontrada"));
+
+        comuna.setNombre(dto.getNombre());
+        comuna.setRegion(region);
+
+        return repository.save(comuna);
+    }
+    
+    public void eliminar(Integer id) {
+
+        logger.info("Eliminando comuna");
+
+        repository.deleteById(id);
+    }
 }

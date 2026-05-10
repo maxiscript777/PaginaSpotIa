@@ -2,15 +2,7 @@ package com.example.PaginaSpotIa.model;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,24 +17,28 @@ import lombok.ToString;
 @Entity
 @Table(name = "ubicaciones")
 public class Ubicacion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUbicacion;
 
-    @NotBlank(message = "La calle no puede estar en blanco")
-    @Size(min = 2, max = 20, message = "El nombre de la calle debe contener entre 2 y 20 caracteres")
-    @Column(nullable = false)
-    private String calle;
+    @NotBlank(message = "La dirección no puede estar vacía")
+    @Size(min = 5, max = 100,
+            message = "La dirección debe contener entre 5 y 100 caracteres")
+    private String direccion;
 
-    @NotNull(message = "El numero no puede estar vacio")
-    @Column(nullable = false)
-    private Integer numero;
+    @NotBlank(message = "La referencia no puede estar vacía")
+    @Size(min = 3, max = 100,
+            message = "La referencia debe contener entre 3 y 100 caracteres")
+    private String referencia;
 
     @ManyToOne
-    @JoinColumn(name = "comuna_id")
+    @JoinColumn(name = "id_comuna")
+    @NotNull(message = "La comuna no puede ser nula")
     private Comuna comuna;
 
     @OneToMany(mappedBy = "ubicacion")
     @ToString.Exclude
     private List<Local> locales;
+
 }

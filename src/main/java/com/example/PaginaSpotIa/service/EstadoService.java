@@ -2,36 +2,71 @@ package com.example.PaginaSpotIa.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.example.PaginaSpotIa.DTO.estadoDTO;
 import com.example.PaginaSpotIa.model.Estado;
 import com.example.PaginaSpotIa.repository.EstadoRepository;
 
 @Service
 public class EstadoService {
 
-    @Autowired
-    private EstadoRepository estadoRepository;
+    private final EstadoRepository repository;
 
-    public List<Estado> obtenerEstados() {
-        return estadoRepository.findAll();
+    private static final Logger logger =
+            LoggerFactory.getLogger(EstadoService.class);
+
+    public EstadoService(EstadoRepository repository) {
+
+        this.repository = repository;
     }
 
-    public Estado obtenerEstadoPorId(Integer id) {
-        return estadoRepository.findById(id).orElse(null);
+    public List<Estado> listar() {
+
+        logger.info("Listando estados");
+
+        return repository.findAll();
     }
 
-    public List<Estado> buscarPorNombre(String nombreEstado) {
-        return estadoRepository.findByNombreEstado(nombreEstado);
+    public Estado buscarPorId(Integer id) {
+
+        logger.info("Buscando estado");
+
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Estado no encontrado"));
     }
 
-    public Estado guardarEstado(Estado estado) {
-        return estadoRepository.save(estado);
+    public Estado guardar(estadoDTO dto) {
+
+        logger.info("Guardando estado");
+
+        Estado estado = new Estado();
+
+        estado.setNombre(dto.getNombre());
+        estado.setDescripcion(dto.getDescripcion());
+
+        return repository.save(estado);
     }
 
-    public void eliminarEstado(Integer id) {
-        estadoRepository.deleteById(id);
+    public Estado actualizar(Integer id, estadoDTO dto) {
+
+        logger.info("Actualizando estado");
+
+        Estado estado = buscarPorId(id);
+
+        estado.setNombre(dto.getNombre());
+        estado.setDescripcion(dto.getDescripcion());
+
+        return repository.save(estado);
     }
 
+    public void eliminar(Integer id) {
+
+        logger.info("Eliminando estado");
+
+        repository.deleteById(id);
+    }
 }

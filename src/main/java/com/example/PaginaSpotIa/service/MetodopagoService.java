@@ -2,36 +2,71 @@ package com.example.PaginaSpotIa.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.example.PaginaSpotIa.DTO.metodopagoDTO;
 import com.example.PaginaSpotIa.model.Metodopago;
 import com.example.PaginaSpotIa.repository.MetodopagoRepository;
 
 @Service
 public class MetodopagoService {
 
-    @Autowired
-    private MetodopagoRepository metodopagoRepository;
+    private final MetodopagoRepository repository;
 
-    public List<Metodopago> obtenerMetodosPago() {
-        return metodopagoRepository.findAll();
+    private static final Logger logger =
+            LoggerFactory.getLogger(MetodopagoService.class);
+
+    public MetodopagoService(MetodopagoRepository repository) {
+
+        this.repository = repository;
     }
 
-    public Metodopago obtenerMetodoPagoPorId(Integer id) {
-        return metodopagoRepository.findById(id).orElse(null);
+    public List<Metodopago> listar() {
+
+        logger.info("Listando métodos de pago");
+
+        return repository.findAll();
     }
 
-    public List<Metodopago> buscarPorNombre(String nombreMetodo) {
-        return metodopagoRepository.findByNombreMetodo(nombreMetodo);
+    public Metodopago buscarPorId(Integer id) {
+
+        logger.info("Buscando método de pago");
+
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Método de pago no encontrado"));
     }
 
-    public Metodopago guardarMetodoPago(Metodopago metodopago) {
-        return metodopagoRepository.save(metodopago);
+    public Metodopago guardar(metodopagoDTO dto) {
+
+        logger.info("Guardando método de pago");
+
+        Metodopago metodoPago = new Metodopago();
+
+        metodoPago.setNombre(dto.getNombre());
+        metodoPago.setDescripcion(dto.getDescripcion());
+
+        return repository.save(metodoPago);
     }
 
-    public void eliminarMetodoPago(Integer id) {
-        metodopagoRepository.deleteById(id);
+    public Metodopago actualizar(Integer id, metodopagoDTO dto) {
+
+        logger.info("Actualizando método de pago");
+
+        Metodopago metodoPago = buscarPorId(id);
+
+        metodoPago.setNombre(dto.getNombre());
+        metodoPago.setDescripcion(dto.getDescripcion());
+
+        return repository.save(metodoPago);
     }
 
+    public void eliminar(Integer id) {
+
+        logger.info("Eliminando método de pago");
+
+        repository.deleteById(id);
+    }
 }

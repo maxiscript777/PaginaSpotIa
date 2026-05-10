@@ -2,46 +2,78 @@ package com.example.PaginaSpotIa.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.example.PaginaSpotIa.DTO.clienteDTO;
 import com.example.PaginaSpotIa.model.Cliente;
 import com.example.PaginaSpotIa.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+    private final ClienteRepository repository;
 
-    public List<Cliente> obtenerClientes() {
-        return clienteRepository.findAll();
-    }
+    private static final Logger logger =
+            LoggerFactory.getLogger(ClienteService.class);
 
-    public Cliente obtenerClientePorRut(String rut) {
-        return clienteRepository.findById(rut).orElse(null);
-    }
+    public ClienteService(ClienteRepository repository) {
 
-    public List<Cliente> buscarPorNombre(String nombre) {
-        return clienteRepository.findByNombre(nombre);
-    }
-    public Cliente buscarPorCorreo(String correo) {
-        return clienteRepository.findByCorreo(correo);
+        this.repository = repository;
     }
 
-     public List<Cliente> buscarSimilares(String nombre) {
-        return clienteRepository.findByNombreContaining(nombre);
+    public List<Cliente> listar() {
+
+        logger.info("Listando clientes");
+
+        return repository.findAll();
     }
 
-    public List<Cliente> buscarNombreLargo(Integer cantidad) {
-        return clienteRepository.buscarClientesNombreLargo(cantidad);
-    }
-    public Cliente guardarCliente(Cliente cliente) {
-        return clienteRepository.save(cliente);
+    public Cliente buscarPorRut(String rut) {
+
+        logger.info("Buscando cliente");
+
+        return repository.findById(rut)
+                .orElseThrow(() ->
+                        new RuntimeException("Cliente no encontrado"));
     }
 
-    public void eliminarCliente(String rut) {
-        clienteRepository.deleteById(rut);
+    public Cliente guardar(clienteDTO dto) {
+
+        logger.info("Guardando cliente");
+
+        Cliente cliente = new Cliente();
+
+        cliente.setRut(dto.getRut());
+        cliente.setNombre(dto.getNombre());
+        cliente.setDireccion(dto.getDireccion());
+        cliente.setTelefono(dto.getTelefono());
+        cliente.setCorreo(dto.getCorreo());
+        cliente.setContraseña(dto.getContraseña());
+
+        return repository.save(cliente);
     }
 
+    public Cliente actualizar(String rut, clienteDTO dto) {
+
+        logger.info("Actualizando cliente");
+
+        Cliente cliente = buscarPorRut(rut);
+
+        cliente.setNombre(dto.getNombre());
+        cliente.setDireccion(dto.getDireccion());
+        cliente.setTelefono(dto.getTelefono());
+        cliente.setCorreo(dto.getCorreo());
+        cliente.setContraseña(dto.getContraseña());
+
+        return repository.save(cliente);
+    }
+
+    public void eliminar(String rut) {
+
+        logger.info("Eliminando cliente");
+
+        repository.deleteById(rut);
+    }
 }

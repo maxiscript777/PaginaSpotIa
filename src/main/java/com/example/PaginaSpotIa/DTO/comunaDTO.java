@@ -4,6 +4,9 @@ import lombok.Data;
 
 @Data
 public class comunaDTO {
+
     private Integer idComuna;
     private String nombre;
+    private Integer idRegion;
+
 }

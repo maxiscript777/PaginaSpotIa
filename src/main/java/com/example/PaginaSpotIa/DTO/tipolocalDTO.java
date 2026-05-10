@@ -4,6 +4,9 @@ import lombok.Data;
 
 @Data
 public class tipolocalDTO {
-    private Integer idTipo;
-    private String nombreTipo;
+
+    private Integer idTipoLocal;
+    private String nombre;
+    private String descripcion;
+
 }

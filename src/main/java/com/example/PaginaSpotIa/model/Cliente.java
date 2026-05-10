@@ -22,31 +22,36 @@ import lombok.ToString;
 public class Cliente {
 
     @Id
-    @NotBlank(message = "El rut no puede estar en blanco")
-    @Size(min = 10, max = 11, message = "El rut debe contener entre 10 y 11 caracteres incluyendo puntos y guión")
+    @NotBlank(message = "El rut no puede estar vacío")
+    @Size(min = 10, max = 11,
+            message = "El rut debe contener entre 10 y 11 caracteres")
     private String rut;
 
-    @NotBlank(message = "El nombre no puede estar en blanco")
-    @Size(min = 2, max = 20, message = "El nombre debe contener entre 2 y 20 caracteres")
+    @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(min = 2, max = 50,
+            message = "El nombre debe contener entre 2 y 50 caracteres")
     private String nombre;
 
-    @NotBlank(message = "La direccion no puede estar vacia")
-    @Size(min = 5, max = 30, message = "La direccion debe contener entre 5 y 30 caracteres")
+    @NotBlank(message = "La dirección no puede estar vacía")
+    @Size(min = 5, max = 100,
+            message = "La dirección debe contener entre 5 y 100 caracteres")
     private String direccion;
 
-    @NotNull(message = "El telefono no puede estar vacio")
+    @NotNull(message = "El teléfono no puede ser nulo")
     private Integer telefono;
 
     @NotBlank(message = "El correo no puede estar vacío")
-    @Size(min = 10, max = 30, message = "El correo debe contener entre 10 y 30 caracteres")
+    @Size(min = 10, max = 100,
+            message = "El correo debe contener entre 10 y 100 caracteres")
     private String correo;
 
     @NotBlank(message = "La contraseña no puede estar vacía")
-    @Size(min = 5, max = 15, message = "La contraseña debe contener entre 5 y 15 caracteres")
+    @Size(min = 5, max = 20,
+            message = "La contraseña debe contener entre 5 y 20 caracteres")
     private String contraseña;
 
     @OneToMany(mappedBy = "cliente")
     @ToString.Exclude
-    private List<Reservas> reservasConCliente;
+    private List<Reservas> reservas;
 
 }

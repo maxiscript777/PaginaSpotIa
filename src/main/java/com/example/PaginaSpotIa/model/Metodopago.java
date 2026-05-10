@@ -2,13 +2,7 @@ package com.example.PaginaSpotIa.model;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -20,18 +14,25 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "metodos de pago")
+@Table(name = "metodos_pago")
 public class Metodopago {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idMetodo;
+    private Integer idMetodoPago;
 
     @NotBlank(message = "El nombre no puede estar vacío")
-    @Size(min = 4, max = 20, message = "El nombre debe contener entre 4 y 20 caracteres")
-    @Column(nullable = false)
-    private String nombreMetodo;
+    @Size(min = 3, max = 50,
+            message = "El nombre debe contener entre 3 y 50 caracteres")
+    private String nombre;
 
-    @OneToMany(mappedBy = "metodopago")
+    @NotBlank(message = "La descripción no puede estar vacía")
+    @Size(min = 5, max = 100,
+            message = "La descripción debe contener entre 5 y 100 caracteres")
+    private String descripcion;
+
+    @OneToMany(mappedBy = "metodoPago")
     @ToString.Exclude
-    private List<Reservas> reservasConMetodopago;
+    private List<Reservas> reservas;
+
 }

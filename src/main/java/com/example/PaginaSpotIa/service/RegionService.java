@@ -53,7 +53,7 @@ public class RegionService {
     public Region actualizar(Integer id, regionDTO dto) {
 
         logger.info("Actualizando región");
-
+        
         Region region = buscarPorId(id);
 
         region.setNombre(dto.getNombre());

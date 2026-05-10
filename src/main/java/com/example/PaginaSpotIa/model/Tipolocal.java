@@ -2,13 +2,7 @@ package com.example.PaginaSpotIa.model;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -20,18 +14,25 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tipos_local")
+@Table(name = "tipos_locales")
 public class Tipolocal {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idTipo;
+    private Integer idTipoLocal;
 
-    @NotBlank(message = "El nombre del tipo de servicio no puede estar en blanco")
-    @Size(min = 2, max = 20, message = "El nombre del tipo de servicio debe contener entre 2 y 20 caracteres")
-    @Column(nullable = false)
-    private String nombreTipo;
+    @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(min = 3, max = 50,
+            message = "El nombre debe contener entre 3 y 50 caracteres")
+    private String nombre;
 
-    @OneToMany(mappedBy = "tipodelocal")
+    @NotBlank(message = "La descripción no puede estar vacía")
+    @Size(min = 5, max = 100,
+            message = "La descripción debe contener entre 5 y 100 caracteres")
+    private String descripcion;
+
+    @OneToMany(mappedBy = "tipoLocal")
     @ToString.Exclude
-    private List<Local> localesConTipo;
+    private List<Local> locales;
+
 }
