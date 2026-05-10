@@ -1,5 +1,65 @@
 package com.example.PaginaSpotIa.controller;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.PaginaSpotIa.DTO.clienteDTO;
+import com.example.PaginaSpotIa.model.Cliente;
+import com.example.PaginaSpotIa.service.ClienteService;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/api/v1/clientes")
 public class ClienteController {
 
+    private final ClienteService service;
+
+    public ClienteController(ClienteService service) {
+
+        this.service = service;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Cliente>> listar() {
+
+        return ResponseEntity.ok(service.listar());
+    }
+
+    @GetMapping("/{rut}")
+    public ResponseEntity<Cliente> buscar(
+            @PathVariable String rut) {
+
+        return ResponseEntity.ok(service.buscarPorRut(rut));
+    }
+
+    @PostMapping
+    public ResponseEntity<Cliente> guardar(
+            @Valid @RequestBody clienteDTO dto) {
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(service.guardar(dto));
+    }
+
+    @PutMapping("/{rut}")
+    public ResponseEntity<Cliente> actualizar(
+            @PathVariable String rut,
+            @Valid @RequestBody clienteDTO dto) {
+
+        return ResponseEntity.ok(
+                service.actualizar(rut, dto));
+    }
+
+    @DeleteMapping("/{rut}")
+    public ResponseEntity<Void> eliminar(
+            @PathVariable String rut) {
+
+        service.eliminar(rut);
+
+        return ResponseEntity.noContent().build();
+    }
 }
