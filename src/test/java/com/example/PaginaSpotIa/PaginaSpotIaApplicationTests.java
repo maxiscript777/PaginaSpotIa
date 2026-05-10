@@ -1,0 +1,13 @@
+package com.example.PaginaSpotIa;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class PaginaSpotIaApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
