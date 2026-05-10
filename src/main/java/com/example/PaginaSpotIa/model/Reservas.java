@@ -1,19 +1,12 @@
 package com.example.PaginaSpotIa.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,42 +17,44 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "reservas")
 public class Reservas {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idReserva;
 
-    @NotNull(message = "La fecha es obligatoria")
-    @FutureOrPresent(message = "La fecha de creacion de la reserva no puede ser pasada")
-    @Column(nullable = false)
-    private Date fechaCreacion;
+    @NotNull(message = "La fecha no puede ser nula")
+    @FutureOrPresent(message = "La fecha debe ser actual o futura")
+    private LocalDate fechaReserva;
 
-    @NotNull(message = "La fecha es obligatoria")
-    @FutureOrPresent(message = "La fecha de reserva no puede ser pasada")
-    @Column(nullable = false)
-    private Date fechaReserva;
+    @NotNull(message = "La hora no puede ser nula")
+    private LocalTime horaReserva;
 
-    @NotNull(message = "El precio no puede estar vacio")
-    @Min(value = 1, message = "El precio debe ser mayor a 0")
-    @Size(min = 1, max = 15, message = "El precio debe contener entre 1 y 15 numeros")
-    @Column(nullable = false)
-    private Integer precio;
-
-    @NotNull(message = "La cantidad de personas que asisten no puede estar vacia")
-    @Min(value = 1, message = "La cantidad de personas debe ser mayor a 0")
-    @Size(min = 1, max = 8, message = "El numero de la cantidad de personas debe tener entre 1 y 8 numeros")
-    @Column(nullable = false)
+    @NotNull(message = "La cantidad de personas no puede ser nula")
+    @Min(value = 1, message = "Debe haber al menos una persona")
     private Integer cantidadPersonas;
 
+    @NotNull(message = "El total no puede ser nulo")
+    @Min(value = 1, message = "El total debe ser mayor a 0")
+    private Integer total;
+
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "rut_cliente")
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "estado_id")
-    private Estado estado;
+    @JoinColumn(name = "id_local")
+    private Local local;
 
     @ManyToOne
-    @JoinColumn(name = "metodopago_id")
-    private Metodopago metodopago;
-    
+    @JoinColumn(name = "id_servicio")
+    private Servicio servicio;
+
+    @ManyToOne
+    @JoinColumn(name = "id_metodo_pago")
+    private Metodopago metodoPago;
+
+    @ManyToOne
+    @JoinColumn(name = "id_estado")
+    private Estado estado;
+
 }

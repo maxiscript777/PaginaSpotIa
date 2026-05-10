@@ -13,9 +13,9 @@ public interface LocalRepository
 
     List<Local> findByNombre(String nombre);
 
-    @Query("SELECT l FROM Local l WHERE l.nombre LIKE %:nombre%")
-    List<Local> buscarPorNombre(
-            @Param("nombre") String nombre
+    @Query("SELECT l FROM Local l WHERE l.capacidad >= :capacidad")
+    List<Local> buscarLocalesGrandes(
+            @Param("capacidad") Integer capacidad
     );
 
 }

@@ -1,14 +1,23 @@
 package com.example.PaginaSpotIa.DTO;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import lombok.Data;
 
 @Data
 public class reservasDTO {
+
     private Integer idReserva;
-    private Date fechaCreacion;
-    private Date fechaReserva;
-    private Integer precio;
+    private LocalDate fechaReserva;
+    private LocalTime horaReserva;
     private Integer cantidadPersonas;
+    private Integer total;
+
+    private String rutCliente;
+    private Integer idLocal;
+    private Integer idServicio;
+    private Integer idMetodoPago;
+    private Integer idEstado;
+
 }

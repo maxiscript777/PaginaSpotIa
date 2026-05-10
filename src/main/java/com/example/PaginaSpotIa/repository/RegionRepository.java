@@ -12,9 +12,10 @@ public interface RegionRepository
         extends JpaRepository<Region, Integer> {
 
     List<Region> findByNombre(String nombre);
-
+    
     @Query("SELECT r FROM Region r WHERE r.nombre LIKE %:nombre%")
     List<Region> buscarPorNombre(
-            @Param("nombre") String nombre);
+            @Param("nombre") String nombre
+    );
 
 }
