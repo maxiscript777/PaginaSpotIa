@@ -2,35 +2,69 @@ package com.example.PaginaSpotIa.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.example.PaginaSpotIa.DTO.regionDTO;
 import com.example.PaginaSpotIa.model.Region;
 import com.example.PaginaSpotIa.repository.RegionRepository;
 
 @Service
 public class RegionService {
 
-    @Autowired
-    private RegionRepository regionRepository;
+    private final RegionRepository repository;
 
-    public List<Region> obtenerRegiones() {
-        return regionRepository.findAll();
-    }
-    public Region obtenerRegionPorId(Integer id) {
-        return regionRepository.findById(id).orElse(null);
-    }
+    private static final Logger logger =
+            LoggerFactory.getLogger(RegionService.class);
 
-    public List<Region> buscarPorNombre(String nombreRegion) {
-        return regionRepository.findByNombreRegion(nombreRegion);
+    public RegionService(RegionRepository repository) {
+
+        this.repository = repository;
     }
 
-    public Region guardarRegion(Region region) {
-        return regionRepository.save(region);
+    public List<Region> listar() {
+
+        logger.info("Listando regiones");
+
+        return repository.findAll();
     }
 
-    public void eliminarRegion(Integer id) {
-        regionRepository.deleteById(id);
+    public Region buscarPorId(Integer id) {
+
+        logger.info("Buscando región por id");
+
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Región no encontrada"));
     }
 
+    public Region guardar(regionDTO dto) {
+
+        logger.info("Guardando región");
+
+        Region region = new Region();
+
+        region.setNombre(dto.getNombre());
+
+        return repository.save(region);
+    }
+
+    public Region actualizar(Integer id, regionDTO dto) {
+
+        logger.info("Actualizando región");
+
+        Region region = buscarPorId(id);
+
+        region.setNombre(dto.getNombre());
+
+        return repository.save(region);
+    }
+
+    public void eliminar(Integer id) {
+
+        logger.info("Eliminando región");
+
+        repository.deleteById(id);
+    }
 }

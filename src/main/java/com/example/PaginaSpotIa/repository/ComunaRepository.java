@@ -5,18 +5,19 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import com.example.PaginaSpotIa.model.Comuna;
 
-@Repository
-public interface ComunaRepository extends JpaRepository<Comuna, Integer> {
+public interface comunaRepository
+        extends JpaRepository<Comuna, Integer> {
 
+    // Buscar por nombre exacto
     List<Comuna> findByNombre(String nombre);
 
-    List<Comuna> findByNombreContaining(String nombre);
-
-    @Query("SELECT c FROM Comuna c WHERE LENGTH(c.nombre) >= :cantidad")
-    List<Comuna> buscarComunasNombreLargo(@Param("cantidad") Integer cantidad);
+    // Buscar por coincidencia parcial
+    @Query("SELECT c FROM Comuna c WHERE c.nombre LIKE %:nombre%")
+    List<Comuna> buscarPorNombre(
+            @Param("nombre") String nombre
+    );
 
 }
