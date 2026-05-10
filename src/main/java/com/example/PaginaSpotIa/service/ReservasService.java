@@ -1,4 +1,4 @@
-package com.example.heroes.heroes.services;
+package com.example.PaginaSpotIa.service;
 
 import java.sql.Date;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.heroes.heroes.model.Reservas;
-import com.example.heroes.heroes.repository.ReservasRepository;
+import com.example.PaginaSpotIa.model.Reservas;
+import com.example.PaginaSpotIa.repository.ReservasRepository;
 
 @Service
 public class ReservasService {

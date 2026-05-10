@@ -1,12 +1,12 @@
-package com.example.heroes.heroes.services;
+package com.example.PaginaSpotIa.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.heroes.heroes.model.Region;
-import com.example.heroes.heroes.repository.RegionRepository;
+import com.example.PaginaSpotIa.model.Region;
+import com.example.PaginaSpotIa.repository.RegionRepository;
 
 @Service
 public class RegionService {

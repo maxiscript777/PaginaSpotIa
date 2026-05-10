@@ -1,4 +1,4 @@
-package com.example.heroes.heroes.repository;
+package com.example.PaginaSpotIa.repository;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.example.heroes.heroes.model.Comuna;
+import com.example.PaginaSpotIa.model.Comuna;
 
 @Repository
 public interface ComunaRepository extends JpaRepository<Comuna, Integer> {

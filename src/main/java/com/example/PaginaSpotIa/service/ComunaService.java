@@ -1,12 +1,12 @@
-package com.example.heroes.heroes.services;
+package com.example.PaginaSpotIa.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.heroes.heroes.model.Comuna;
-import com.example.heroes.heroes.repository.ComunaRepository;
+import com.example.PaginaSpotIa.model.Comuna;
+import com.example.PaginaSpotIa.repository.ComunaRepository;
 
 @Service
 public class ComunaService {

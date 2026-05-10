@@ -1,4 +1,4 @@
-package com.example.heroes.heroes.DTO;
+package com.example.PaginaSpotIa.DTO;
 
 import lombok.Data;
 

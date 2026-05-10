@@ -1,12 +1,12 @@
-package com.example.heroes.heroes.services;
+package com.example.PaginaSpotIa.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.heroes.heroes.model.Estado;
-import com.example.heroes.heroes.repository.EstadoRepository;
+import com.example.PaginaSpotIa.model.Estado;
+import com.example.PaginaSpotIa.repository.EstadoRepository;
 
 @Service
 public class EstadoService {
