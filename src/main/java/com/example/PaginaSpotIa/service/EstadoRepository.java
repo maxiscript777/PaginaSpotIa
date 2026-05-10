@@ -1,4 +1,4 @@
-package com.example.PaginaSpotIa.repository;
+package com.example.PaginaSpotIa.service;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.heroes.heroes.controller;
+package com.example.PaginaSpotIa.controller;
 
 public class TipolocalController {
 

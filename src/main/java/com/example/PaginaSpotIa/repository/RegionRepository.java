@@ -1,15 +1,20 @@
-package com.example.heroes.heroes.repository;
+package com.example.PaginaSpotIa.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import com.example.heroes.heroes.model.Region;
+import com.example.PaginaSpotIa.model.Region;
 
-@Repository
-public interface RegionRepository extends JpaRepository<Region, Integer> {
+public interface RegionRepository
+        extends JpaRepository<Region, Integer> {
 
-    List<Region> findByNombreRegion(String nombreRegion);
-    
+    List<Region> findByNombre(String nombre);
+
+    @Query("SELECT r FROM Region r WHERE r.nombre LIKE %:nombre%")
+    List<Region> buscarPorNombre(
+            @Param("nombre") String nombre);
+
 }
