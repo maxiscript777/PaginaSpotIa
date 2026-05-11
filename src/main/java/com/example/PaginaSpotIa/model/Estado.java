@@ -2,7 +2,7 @@ package com.example.PaginaSpotIa.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -35,7 +35,7 @@ public class Estado {
 
     @OneToMany(mappedBy = "estado")
     @ToString.Exclude
-    @JsonManagedReference
+    @JsonIgnore
     private List<Reservas> reservas;
 
 }
