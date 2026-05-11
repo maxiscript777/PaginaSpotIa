@@ -34,11 +34,10 @@ public class Ubicacion {
             message = "La referencia debe contener entre 3 y 100 caracteres")
     private String referencia;
 
-    @ManyToOne
-    @JoinColumn(name = "id_comuna")
-    @NotNull(message = "La comuna no puede ser nula")
-    @JsonIgnore
-    private Comuna comuna;
+        @ManyToOne
+        @JoinColumn(name = "id_comuna")
+        @NotNull(message = "La comuna no puede ser nula")
+        private Comuna comuna;
 
     @OneToMany(mappedBy = "ubicacion")
     @ToString.Exclude

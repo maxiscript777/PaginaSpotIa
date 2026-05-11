@@ -2,9 +2,7 @@ package com.example.PaginaSpotIa.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -43,19 +41,16 @@ public class Local {
 
     @ManyToOne
     @JoinColumn(name = "id_tipo_local")
-    @JsonBackReference
     @JsonIgnore
     private Tipolocal tipoLocal;
 
     @ManyToOne
     @JoinColumn(name = "id_ubicacion")
-    @JsonBackReference
     @JsonIgnore
     private Ubicacion ubicacion;
 
     @OneToMany(mappedBy = "local")
     @ToString.Exclude
-    @JsonManagedReference
     @JsonIgnore
     private List<Reservas> reservas;
 

@@ -3,8 +3,6 @@ package com.example.PaginaSpotIa.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
@@ -41,27 +39,22 @@ public class Reservas {
 
     @ManyToOne
     @JoinColumn(name = "rut_cliente")
-    @JsonIgnore
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "id_local")
-    @JsonIgnore
     private Local local;
 
     @ManyToOne
     @JoinColumn(name = "id_servicio")
-    @JsonIgnore
     private Servicio servicio;
 
     @ManyToOne
     @JoinColumn(name = "id_metodo_pago")
-    @JsonIgnore
     private Metodopago metodoPago;
 
     @ManyToOne
     @JoinColumn(name = "id_estado")
-    @JsonIgnore
     private Estado estado;
 
 }
