@@ -2,8 +2,7 @@ package com.example.PaginaSpotIa.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -33,12 +32,11 @@ public class Comuna {
     @ManyToOne
     @JoinColumn(name = "id_region")
     @NotNull(message = "La región no puede ser nula")
-    @JsonBackReference
     private Region region;
 
     @OneToMany(mappedBy = "comuna")
     @ToString.Exclude
-    @JsonManagedReference
+    @JsonIgnore
     private List<Ubicacion> ubicaciones;
 
 }
