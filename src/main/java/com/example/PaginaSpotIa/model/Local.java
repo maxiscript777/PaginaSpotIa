@@ -44,11 +44,13 @@ public class Local {
     @ManyToOne
     @JoinColumn(name = "id_tipo_local")
     @JsonBackReference
+    @JsonIgnore
     private Tipolocal tipoLocal;
 
     @ManyToOne
     @JoinColumn(name = "id_ubicacion")
     @JsonBackReference
+    @JsonIgnore
     private Ubicacion ubicacion;
 
     @OneToMany(mappedBy = "local")

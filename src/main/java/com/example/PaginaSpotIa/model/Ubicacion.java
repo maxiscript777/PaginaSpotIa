@@ -37,6 +37,7 @@ public class Ubicacion {
     @ManyToOne
     @JoinColumn(name = "id_comuna")
     @NotNull(message = "La comuna no puede ser nula")
+    @JsonIgnore
     private Comuna comuna;
 
     @OneToMany(mappedBy = "ubicacion")
