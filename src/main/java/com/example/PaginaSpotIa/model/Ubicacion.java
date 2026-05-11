@@ -2,7 +2,16 @@ package com.example.PaginaSpotIa.model;
 
 import java.util.List;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -39,6 +48,7 @@ public class Ubicacion {
 
     @OneToMany(mappedBy = "ubicacion")
     @ToString.Exclude
+    @JsonIgnore
     private List<Local> locales;
 
 }

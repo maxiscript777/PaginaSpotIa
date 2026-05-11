@@ -2,6 +2,8 @@ package com.example.PaginaSpotIa.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -33,6 +35,7 @@ public class Tipolocal {
 
     @OneToMany(mappedBy = "tipoLocal")
     @ToString.Exclude
+    @JsonIgnore
     private List<Local> locales;
 
 }

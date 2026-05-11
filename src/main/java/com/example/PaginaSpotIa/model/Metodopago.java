@@ -2,6 +2,8 @@ package com.example.PaginaSpotIa.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -33,6 +35,7 @@ public class Metodopago {
 
     @OneToMany(mappedBy = "metodoPago")
     @ToString.Exclude
+    @JsonManagedReference
     private List<Reservas> reservas;
 
 }
