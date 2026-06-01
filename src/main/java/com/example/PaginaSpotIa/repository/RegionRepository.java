@@ -10,8 +10,6 @@ import com.example.PaginaSpotIa.model.Region;
 
 public interface RegionRepository
         extends JpaRepository<Region, Integer> {
-
-    List<Region> findByNombre(String nombre);
     
     @Query("SELECT r FROM Region r WHERE r.nombre LIKE %:nombre%")
     List<Region> buscarPorNombre(

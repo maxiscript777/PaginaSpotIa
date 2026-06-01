@@ -11,8 +11,6 @@ import com.example.PaginaSpotIa.model.Tipolocal;
 public interface TipolocalRepository
         extends JpaRepository<Tipolocal, Integer> {
 
-    List<Tipolocal> findByNombre(String nombre);
-
     @Query("SELECT t FROM Tipolocal t WHERE t.nombre LIKE %:nombre%")
     List<Tipolocal> buscarPorNombre(
             @Param("nombre") String nombre
