@@ -20,7 +20,7 @@ import com.example.PaginaSpotIa.service.MetodopagoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/v1/metodos-pago")
+@RequestMapping("/api/v1/metodopago")
 public class MetodopagoController {
 
     private final MetodopagoService service;

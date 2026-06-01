@@ -20,7 +20,7 @@ import com.example.PaginaSpotIa.service.TipolocalService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/v1/tipos-locales")
+@RequestMapping("/api/v1/tipo_local")
 public class TipolocalController {
 
     private final TipolocalService service;
