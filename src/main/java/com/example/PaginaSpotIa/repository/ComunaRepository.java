@@ -11,7 +11,6 @@ import com.example.PaginaSpotIa.model.Comuna;
 public interface ComunaRepository
         extends JpaRepository<Comuna, Integer> {
 
-    List<Comuna> findByNombre(String nombre);
 
     @Query("SELECT c FROM Comuna c WHERE c.nombre LIKE %:nombre%")
     List<Comuna> buscarPorNombre(

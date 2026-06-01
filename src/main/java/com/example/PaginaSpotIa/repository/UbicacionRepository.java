@@ -11,8 +11,6 @@ import com.example.PaginaSpotIa.model.Ubicacion;
 public interface UbicacionRepository
         extends JpaRepository<Ubicacion, Integer> {
 
-    List<Ubicacion> findByDireccion(String direccion);
-
     @Query("SELECT u FROM Ubicacion u WHERE u.direccion LIKE %:direccion%")
     List<Ubicacion> buscarPorDireccion(
             @Param("direccion") String direccion

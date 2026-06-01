@@ -11,8 +11,6 @@ import com.example.PaginaSpotIa.model.Metodopago;
 public interface MetodopagoRepository
         extends JpaRepository<Metodopago, Integer> {
 
-    List<Metodopago> findByNombre(String nombre);
-
     @Query("SELECT m FROM Metodopago m WHERE m.nombre LIKE %:nombre%")
     List<Metodopago> buscarPorNombre(
             @Param("nombre") String nombre

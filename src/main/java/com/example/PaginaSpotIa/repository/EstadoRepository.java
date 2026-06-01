@@ -11,8 +11,6 @@ import com.example.PaginaSpotIa.model.Estado;
 public interface EstadoRepository
         extends JpaRepository<Estado, Integer> {
 
-    List<Estado> findByNombre(String nombre);
-
     @Query("SELECT e FROM Estado e WHERE e.nombre LIKE %:nombre%")
     List<Estado> buscarPorNombre(
             @Param("nombre") String nombre
