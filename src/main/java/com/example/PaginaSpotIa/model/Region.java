@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,8 +30,8 @@ public class Region {
     private Integer idRegion;
 
     @NotBlank(message = "El nombre no puede estar vacío")
-    @Size(min = 3, max = 50,
-            message = "El nombre debe contener entre 3 y 50 caracteres")
+    @Size(min = 3, max = 50, message = "El nombre debe contener entre 3 y 50 caracteres")
+    @Column(unique = false, length = 50, nullable = false)
     private String nombre;
 
     @OneToMany(mappedBy = "region")
